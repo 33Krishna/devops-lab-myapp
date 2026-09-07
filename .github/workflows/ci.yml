@@ -81,3 +81,19 @@ jobs:
             cd ~/myapp
             docker compose pull
             docker compose up -d
+   deploy-production:
+    if: github.ref == 'refs/heads/prod'
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd ~/myapp-prod
+            docker compose pull
+            docker compose up -d
