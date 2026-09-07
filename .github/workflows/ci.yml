@@ -81,7 +81,8 @@ jobs:
             cd ~/myapp
             docker compose pull
             docker compose up -d
-   deploy-production:
+
+  deploy-production:
     if: github.ref == 'refs/heads/prod'
     needs: docker-build-push
     runs-on: ubuntu-latest
