@@ -29,6 +29,8 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
+    throw new Exception("Intentional break for rollback practice!");
+    
     var forecast =  Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
